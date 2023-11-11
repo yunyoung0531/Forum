@@ -36,6 +36,12 @@ app.get('/list', async (요청, 응답) => {
     응답.render('list.ejs', { posts: res })
 })
 
+app.get('/time', async (요청, 응답) => {
+    //let res = await db.collection('post2').find().toArray()
+    //응답.send(res[0].title)
+
+    응답.render('time.ejs', { data: new Date() })
+})
 // app.get('/shop', (요청, 응답) => {
 //     응답.send('쇼핑 페이지 입니다')
 // })
