@@ -46,11 +46,19 @@ app.get('/write', (요청, 응답) => {
     응답.render('write.ejs')
 })
 
-app.post('/add', (요청, 응답) => {
+app.post('/add', async (요청, 응답) => {
     console.log(요청.body);
-    db.collection('post2').insertOne({title: 요청.body.title, content: 요청.body.content},
-        function(err, result){
-            console.log('데이터 저장 완료')
+
+    try {
+        if (요청.body.title == '') {
+            응답.send('제목 입력 안함')
+        } else {
+            await db.collection('post2').insertOne({title: 요청.body.title, content: 요청.body.content},)
+            응답.redirect('/list')
         }
-        )
+    } catch (error) {
+        console.log(error);
+        응답.status(500).send('서버 에러')
+    }
+
 })
