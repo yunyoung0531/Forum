@@ -6,7 +6,7 @@ app.set('view engine', 'ejs')
 app.use(express.json())
 app.use(express.urlencoded({extended:true}))
 
-const { MongoClient } = require('mongodb');
+const { MongoClient, ObjectId } = require('mongodb');
 
 let db
 const url = 'mongodb+srv://yunyoung0531:chldbsdud01!@yunyoung0531.5jpytmr.mongodb.net/?retryWrites=true&w=majority';
@@ -62,3 +62,11 @@ app.post('/add', async (요청, 응답) => {
     }
 
 })
+
+app.get('/detail/:id', async (요청, 응답)=>{
+    
+    let result = await db.collection('post2').findOne({ _id : new ObjectId(요청.params.id) })
+    console.log("result는", 요청.params);
+    응답.render('detail.ejs', { result: result })
+})
+
