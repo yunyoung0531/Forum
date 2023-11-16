@@ -64,9 +64,16 @@ app.post('/add', async (요청, 응답) => {
 })
 
 app.get('/detail/:id', async (요청, 응답)=>{
-    
-    let result = await db.collection('post2').findOne({ _id : new ObjectId(요청.params.id) })
-    console.log("result는", 요청.params);
-    응답.render('detail.ejs', { result: result })
+    try {
+        let result = await db.collection('post2').findOne({ _id : new ObjectId(요청.params.id) })
+        console.log("result는", 요청.params);
+        if (result == null) {
+            응답.status(404).send('존재하지 않는 url 입력함')
+        }
+        응답.render('detail.ejs', { result: result })
+    } catch (error) {
+        console.log(error)
+        응답.status(404).send('존재하지 않는 url 입력함')
+    }
 })
 
