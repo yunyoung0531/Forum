@@ -77,3 +77,16 @@ app.get('/detail/:id', async (요청, 응답)=>{
     }
 })
 
+app.get('/edit/:id', async (요청, 응답) => {
+    //await db.collection('post2').updateOne({ _id: new ObjectId(요청.params.id) }, {$set: { title: 요청.body.title, content: 요청.body.contnet }})
+    let result = await db.collection('post2').findOne({ _id: new ObjectId(요청.params.id) })
+    console.log(result)
+    응답.render('edit.ejs', { result: result })
+})
+
+app.post('/edit', async (요청, 응답) => {
+    let result = await db.collection('post2').updateOne({ _id: new ObjectId(요청.body.id) }, {$set: { title: 요청.body.title, content: 요청.body.content }})
+    
+    console.log(result);
+    응답.redirect('/list')
+})
