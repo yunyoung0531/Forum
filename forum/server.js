@@ -1,12 +1,15 @@
 const express = require('express')
 const app = express()
+const { MongoClient, ObjectId } = require('mongodb');
+const methodOverride = require('method-override')
 
+app.use(methodOverride('_method'))
 app.use(express.static(__dirname + '/public'))
 app.set('view engine', 'ejs')
 app.use(express.json())
 app.use(express.urlencoded({extended:true}))
 
-const { MongoClient, ObjectId } = require('mongodb');
+
 
 let db
 const url = 'mongodb+srv://yunyoung0531:chldbsdud01!@yunyoung0531.5jpytmr.mongodb.net/?retryWrites=true&w=majority';
@@ -84,9 +87,11 @@ app.get('/edit/:id', async (요청, 응답) => {
     응답.render('edit.ejs', { result: result })
 })
 
-app.post('/edit', async (요청, 응답) => {
-    let result = await db.collection('post2').updateOne({ _id: new ObjectId(요청.body.id) }, {$set: { title: 요청.body.title, content: 요청.body.content }})
+app.put('/edit', async (요청, 응답) => {
+    await db.collection('post2').updateOne({ _id : 1 }, {$inc : { like : -2}})
+
+    // let result = await db.collection('post2').updateOne({ _id: new ObjectId(요청.body.id) }, {$set: { title: 요청.body.title, content: 요청.body.content }})
     
-    console.log(result);
-    응답.redirect('/list')
+    // console.log(result);
+    // 응답.redirect('/list')
 })
