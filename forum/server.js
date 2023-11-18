@@ -95,3 +95,7 @@ app.put('/edit', async (요청, 응답) => {
     // console.log(result);
     // 응답.redirect('/list')
 })
+
+app.get('/abc', async (요청, 응답) => {
+    console.log(요청.query)
+})

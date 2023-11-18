@@ -16,9 +16,17 @@
                 <h4><a href="/detail/<%= posts[i]._id %>"><%= (posts[i].title) %></a></h4>
                 <p><%= (posts[i].content) %></p>
                 <a href="/edit/<%= posts[i]._id %>">✏️</a>
+                <span class="delete">🗑️</span>
             </div>
         <% } %>
 </div> 
+
+<script>
+    document.querySelectorAll('.delete')[0]
+    .addEventListener('click', function() {
+        fetch('/abc?age=23&name=최윤영')
+    })
+</script>
 
 </body>
 </html>
