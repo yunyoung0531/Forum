@@ -87,15 +87,11 @@ app.get('/edit/:id', async (요청, 응답) => {
     응답.render('edit.ejs', { result: result })
 })
 
-app.put('/edit', async (요청, 응답) => {
-    await db.collection('post2').updateOne({ _id : 1 }, {$inc : { like : -2}})
+// app.put('/edit', async (요청, 응답) => {
+//     await db.collection('post2').updateOne({ _id : 1 }, {$inc : { like : -2}})
+// })
 
-    // let result = await db.collection('post2').updateOne({ _id: new ObjectId(요청.body.id) }, {$set: { title: 요청.body.title, content: 요청.body.content }})
-    
-    // console.log(result);
-    // 응답.redirect('/list')
-})
-
-app.get('/abc', async (요청, 응답) => {
-    console.log(요청.query)
+app.get('/delete', async (요청, 응답) => {
+    await db.collection('post2').deleteOne({ _id: new ObjectId(요청.query.docid) })
+    응답.send('삭제완료')
 })
